@@ -10,6 +10,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import {useDispatch, useSelector} from 'react-redux';
+import {changeEmail, changePassword }from '../store';
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -26,6 +29,17 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+    const dispatch = useDispatch();
+    const {email, password} = useSelector(state => state.login);
+
+  const handleChangeEmail = (e) => {
+    dispatch(changeEmail(e.target.value));
+  }
+
+  const handleChangePassword = (e) => {
+    dispatch(changePassword(e.target.value));
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -52,6 +66,7 @@ export default function SignIn() {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
+              onChange={handleChangeEmail}
               margin="normal"
               required
               fullWidth
@@ -61,7 +76,9 @@ export default function SignIn() {
               autoComplete="email"
               autoFocus
             />
+            {email}
             <TextField
+                onChange={handleChangePassword}
               margin="normal"
               required
               fullWidth
@@ -71,6 +88,7 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
+            {password}
             <Button
               type="submit"
               fullWidth
