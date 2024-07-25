@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 
 const AuthContext = React.createContext();
 
@@ -13,13 +14,20 @@ export const AuthProvider = ({ children }) => {
         }
     }, []);
 
-    const login =(userData) => {
+    const login = (userData) => {
         setUser(userData);
         sessionStorage.setItem('user', JSON.stringify(userData));
     }
 
+    const logout = () => {
+        setUser(null);
+        sessionStorage.removeItem('user');
+        toast.success('Logout Sucess');
+        
+    }
+
     return (
-        <AuthContext.Provider value={{ user,login }}>
+        <AuthContext.Provider value={{ user, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

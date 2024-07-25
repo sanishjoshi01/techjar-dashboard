@@ -3,10 +3,13 @@ import SignIn from './components/SignIn';
 import Dashboard from './components/Dashboard';
 import ProtectedRoute from './ProtectedRoute';
 import GuestRoute from './GuestRoute';
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <Router>
+      <ToastContainer />
       <Routes>
         <Route 
         path='/login' 
@@ -16,7 +19,7 @@ function App() {
           </GuestRoute>
           }
           />
-          
+
         <Route 
           path='/dashboard' 
           element={

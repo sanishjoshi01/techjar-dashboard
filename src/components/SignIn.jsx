@@ -17,7 +17,7 @@ import {requestLogin} from '../api/loginAPI';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 
-
+import { toast } from 'react-toastify';
 
 const defaultTheme = createTheme();
 
@@ -29,37 +29,36 @@ export default function SignIn() {
 
     const { login } = useAuth();
 
-  const handleChangeEmail = (e) => {
-    dispatch(changeEmail(e.target.value));
-  }
+    const handleChangeEmail = (e) => {
+        dispatch(changeEmail(e.target.value));
+    }
 
-  const handleChangePassword = (e) => {
-    dispatch(changePassword(e.target.value));
-  }
+    const handleChangePassword = (e) => {
+        dispatch(changePassword(e.target.value));
+    }
 
-const handleSubmit = async (event) => {
-    event.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-    //use login function here
-    try{
-        const response = await requestLogin(email, password);
-        console.log(response)
-        console.log(response.message);
+        //use login function here
+        try{
+            const response = await requestLogin(email, password);
 
-        if(response.success){
-            login(response.user);
+            if(response.success){
+                login(response.user);
+                toast.success(response.message);
+                //store login details in the sessionStorage
+                sessionStorage.setItem('successMessage', JSON.stringify(response.message));
 
-            //store login details in the sessionStorage
-            sessionStorage.setItem('successMessage', JSON.stringify(response.message));
-
-            //navigate to dashboard
-            navigate('/dashboard');
+                //navigate to dashboard
+                navigate('/dashboard');
+            }
         }
-    }
-    catch(error){
-        console.log(error.message);
-    }
-};
+        catch(error){
+            console.log(error.message);
+            toast.error(error.message);
+        }
+    };
 
   return (
     <ThemeProvider theme={defaultTheme}>

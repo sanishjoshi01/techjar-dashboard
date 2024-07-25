@@ -23,6 +23,8 @@ import Chart from './Chart';
 import Deposits from './Deposit';
 import Orders from './Orders';
 import Copyright from './Copyright';
+import { useAuth } from '../context/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -74,26 +76,30 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+    const { logout } = useAuth();
+    const navigate = useNavigate();
+    const [open, setOpen] = React.useState(true);
+    const toggleDrawer = () => {
+        setOpen(!open);
+    };
 
-  //Account Menu
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const openMenu = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    //Account Menu
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const openMenu = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
-    const handleLogout=()=> {
-        handleClose();
+        const handleLogout=()=> {
+            handleClose();
 
-        // TODO- logout
-    }
+            // TODO- logout
+            logout();
+            navigate('/');
+        }
 
   return (
     <ThemeProvider theme={defaultTheme}>
