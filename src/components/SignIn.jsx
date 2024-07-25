@@ -13,8 +13,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeEmail, changePassword }from '../store';
 
-import {login} from '../api/loginAPI';
+import {requestLogin} from '../api/loginAPI';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/useAuth';
 
 function Copyright(props) {
   return (
@@ -37,6 +38,8 @@ export default function SignIn() {
 
     const navigate = useNavigate();
 
+    const { login } = useAuth();
+
   const handleChangeEmail = (e) => {
     dispatch(changeEmail(e.target.value));
   }
@@ -45,25 +48,27 @@ export default function SignIn() {
     dispatch(changePassword(e.target.value));
   }
 
-  const handleSubmit = async (event) => {
+const handleSubmit = async (event) => {
     event.preventDefault();
 
     //use login function here
-   try{
-    const response = await login(email, password);
-    console.log(response)
-    console.log(response.message);
+    try{
+        const response = await requestLogin(email, password);
+        console.log(response)
+        console.log(response.message);
 
-    //store login details in the sessionStorage
-    sessionStorage.setItem('isAuth', JSON.stringify(response));
+        login(response.user);
+        
+        //store login details in the sessionStorage
+        sessionStorage.setItem('successMessage', JSON.stringify(response.message));
 
-    //navigate to dashboard
-    navigate('/dashboard');
-}
-   catch(error){
-    console.log(error.message);
-   }
-  };
+        //navigate to dashboard
+        navigate('/dashboard');
+        }
+    catch(error){
+        console.log(error.message);
+    }
+};
 
   return (
     <ThemeProvider theme={defaultTheme}>

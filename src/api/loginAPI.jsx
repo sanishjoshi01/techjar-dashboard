@@ -1,5 +1,3 @@
-import {nanoid} from '@reduxjs/toolkit';  
-
 const users = [
     {
         email: 'admin@gmail.com',
@@ -7,14 +5,16 @@ const users = [
     }
 ];
 
-export const login = (email, password) => {
+export const requestLogin = (email, password) => {
     return new Promise((resolve, reject) => {
         const user = users.find(user => user.email === email && user.password === password);
         if(user){
             resolve({
                 success: true, 
                 message: 'Login Successful',
-                token: nanoid(),
+                user: {
+                    email
+                }
             });
         }
         else{
