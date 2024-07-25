@@ -5,7 +5,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/login' element={<SignIn/>}></Route>
+        <Route path='/' element={<SignIn/>}/>
       </Routes>
     </Router>
   )
