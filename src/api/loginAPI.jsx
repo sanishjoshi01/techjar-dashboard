@@ -1,3 +1,5 @@
+import {nanoid} from '@reduxjs/toolkit';  
+
 const users = [
     {
         email: 'admin@gmail.com',
@@ -11,7 +13,8 @@ export const login = (email, password) => {
         if(user){
             resolve({
                 success: true, 
-                message: 'Login Successful'
+                message: 'Login Successful',
+                token: nanoid(),
             });
         }
         else{

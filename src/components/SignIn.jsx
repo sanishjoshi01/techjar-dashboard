@@ -13,6 +13,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeEmail, changePassword }from '../store';
 
+import {login} from '../api/loginAPI';
+import { useNavigate } from 'react-router-dom';
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -32,6 +35,8 @@ export default function SignIn() {
     const dispatch = useDispatch();
     const {email, password} = useSelector(state => state.login);
 
+    const navigate = useNavigate();
+
   const handleChangeEmail = (e) => {
     dispatch(changeEmail(e.target.value));
   }
@@ -40,10 +45,24 @@ export default function SignIn() {
     dispatch(changePassword(e.target.value));
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     //use login function here
+   try{
+    const response = await login(email, password);
+    console.log(response)
+    console.log(response.message);
+
+    //store login details in the sessionStorage
+    sessionStorage.setItem('isAuth', JSON.stringify(response));
+
+    //navigate to dashboard
+    navigate('/dashboard');
+}
+   catch(error){
+    console.log(error.message);
+   }
   };
 
   return (
