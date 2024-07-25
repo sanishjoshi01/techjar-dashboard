@@ -3,12 +3,12 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Copyright from './Copyright';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {changeEmail, changePassword }from '../store';
@@ -17,18 +17,7 @@ import {requestLogin} from '../api/loginAPI';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="#">
-        Tech Jar Dashboard
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 const defaultTheme = createTheme();
 
@@ -57,14 +46,16 @@ const handleSubmit = async (event) => {
         console.log(response)
         console.log(response.message);
 
-        login(response.user);
-        
-        //store login details in the sessionStorage
-        sessionStorage.setItem('successMessage', JSON.stringify(response.message));
+        if(response.success){
+            login(response.user);
 
-        //navigate to dashboard
-        navigate('/dashboard');
+            //store login details in the sessionStorage
+            sessionStorage.setItem('successMessage', JSON.stringify(response.message));
+
+            //navigate to dashboard
+            navigate('/dashboard');
         }
+    }
     catch(error){
         console.log(error.message);
     }
