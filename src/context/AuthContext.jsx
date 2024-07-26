@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 
 const AuthContext = React.createContext();
 
-// eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = React.useState(null);
 

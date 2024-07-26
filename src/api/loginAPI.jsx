@@ -1,11 +1,12 @@
-const users = [
-    {
-        email: 'admin@gmail.com',
-        password: 'admin#123'
-    }
-];
 
-export const requestLogin = (email, password) => {
+const requestLogin = (email, password) => {
+    const users = [
+        {
+            email: 'admin@gmail.com',
+            password: 'admin#123'
+        }
+    ];
+
     return new Promise((resolve, reject) => {
         const user = users.find(user => user.email === email && user.password === password);
         if(user){
@@ -25,3 +26,5 @@ export const requestLogin = (email, password) => {
         }
     })
 }
+
+export {requestLogin};

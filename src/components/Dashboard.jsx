@@ -26,6 +26,9 @@ import Copyright from './Copyright';
 import { useAuth } from '../context/useAuth';
 import { useNavigate } from 'react-router-dom';
 
+import {fetchDashboardData, fetchOrdersData, fetchDepositsData, fetchChartData} from '../api/mockAPI';
+import Loading from './Loading';
+
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -76,30 +79,67 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
-    const { logout } = useAuth();
-    const navigate = useNavigate();
-    const [open, setOpen] = React.useState(true);
-    const toggleDrawer = () => {
-        setOpen(!open);
-    };
+  const [loading, setLoading] = React.useState(true);
+  const [loadingOrders, setLoadingOrders] = React.useState(true);
+  const [ordersData, setOrdersData] = React.useState(null);
 
-    //Account Menu
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const openMenu = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+  const [loadingDeposits, setLoadingDeposits] = React.useState(true);
+  const [depositsData, setDepositsData] = React.useState(null);
 
-        const handleLogout=()=> {
-            handleClose();
+  const [loadingChart, setLoadingChart] = React.useState(true);
+  const [chartData, setChartData] = React.useState(null);
 
-            // TODO- logout
-            logout();
-            navigate('/');
-        }
+  //for full page loading
+  React.useEffect(() => {
+    const fetchData = async () => {
+      await fetchDashboardData();
+      setLoading(false);
+
+      const ordersData = await fetchOrdersData();
+      setOrdersData(ordersData);
+      setLoadingOrders(false);
+
+      const depositsData  = await fetchDepositsData();
+      setDepositsData(depositsData);
+      setLoadingDeposits(false);
+
+      const chartData = await fetchChartData();
+      setChartData(chartData);
+      setLoadingChart(false);
+  };
+
+  fetchData();
+  }, []);
+  console.log(depositsData);
+
+  const { logout, user } = useAuth();
+  const navigate = useNavigate();
+  const [open, setOpen] = React.useState(true);
+  const toggleDrawer = () => {
+      setOpen(!open);
+  };
+
+  //Account Menu
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const openMenu = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout=()=> {
+      handleClose();
+
+      // TODO- logout
+      logout();
+      navigate('/');
+  }
+
+  if (loading) {
+    return <Loading className='fixed inset-0'/>;
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -153,7 +193,7 @@ export default function Dashboard() {
                 onClose={handleClose}
                 TransitionComponent={Fade}
             >
-                <MenuItem onClick={handleClose}>Email: admin@gmail.com</MenuItem>
+                <MenuItem onClick={handleClose}>{user.email}</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </Toolbar>
@@ -203,7 +243,7 @@ export default function Dashboard() {
                     height: 240,
                   }}
                 >
-                  <Chart />
+                  {loadingChart ? <Loading classNameSpinner='w-24 h-24'/> : <Chart data={chartData}/> }
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -216,13 +256,13 @@ export default function Dashboard() {
                     height: 240,
                   }}
                 >
-                  <Deposits />
+                  {loadingDeposits ? (<Loading classNameSpinner='w-24 h-24'/>) : <Deposits data={depositsData}/>}
                 </Paper>
               </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                  {loadingOrders ? (<Loading classNameSpinner='w-24 h-24'/>) : <Orders rows={ordersData}/>}
                 </Paper>
               </Grid>
             </Grid>
