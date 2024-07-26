@@ -4,7 +4,7 @@ const fetchDashboardData = () => {
   });
 };
 
-//ORDERS DATA
+//All Orders Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
   return { id, date, name, shipTo, paymentMethod, amount };
 }
@@ -22,7 +22,7 @@ const fetchOrdersData = () => {
       ),
       createData(
         1,
-        "16 Mar, 2019",
+        "21 Mar, 2019",
         "Paul McCartney",
         "London, UK",
         "VISA ⠀•••• 2574",
@@ -30,7 +30,7 @@ const fetchOrdersData = () => {
       ),
       createData(
         2,
-        "16 Mar, 2019",
+        "27 Mar, 2019",
         "Tom Scholz",
         "Boston, MA",
         "MC ⠀•••• 1253",
@@ -38,7 +38,7 @@ const fetchOrdersData = () => {
       ),
       createData(
         3,
-        "16 Mar, 2019",
+        "16 Apr, 2019",
         "Michael Jackson",
         "Gary, IN",
         "AMEX ⠀•••• 2000",
@@ -46,11 +46,51 @@ const fetchOrdersData = () => {
       ),
       createData(
         4,
-        "15 Mar, 2019",
+        "21 Apr, 2019",
         "Bruce Springsteen",
         "Long Branch, NJ",
         "VISA ⠀•••• 5919",
         212.79
+      ),
+      createData(
+        5,
+        "21 Apr, 2024",
+        "Bruce Lee",
+        "Breeze City, IN",
+        "VISA ⠀•••• 2424",
+        224.79
+      ),
+      createData(
+        6,
+        "21 Apr, 2020",
+        "Spring Steen",
+        "Branch Bay, SW",
+        "VISA ⠀•••• 2020",
+        202.79
+      ),
+      createData(
+        7,
+        "21 Apr, 2021",
+        "Losey Guo",
+        "Moskow, CH",
+        "VISA ⠀•••• 3219",
+        214.79
+      ),
+      createData(
+        8,
+        "21 Apr, 2022",
+        "Danielle",
+        "Ditto City, NJ",
+        "VISA ⠀•••• 2000",
+        200.0
+      ),
+      createData(
+        9,
+        "21 Apr, 2023",
+        "Sayit Won",
+        "Middle Stay, NJ",
+        "VISA ⠀•••• 5932",
+        232.79
       ),
     ];
     setTimeout(() => resolve(rows), 2500);
@@ -90,9 +130,26 @@ const fetchChartData = () => {
   });
 };
 
+//Customer Data - Getting from Orders data
+const response = await fetchOrdersData();
+
+const customerData = response.map((data) => {
+  return {
+    customer_name: data.name,
+    customer_address: data.shipTo,
+  };
+});
+
+const fetchCustomerData = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(customerData), 2500);
+  });
+};
+
 export {
   fetchDashboardData,
   fetchOrdersData,
   fetchDepositsData,
   fetchChartData,
+  fetchCustomerData,
 };

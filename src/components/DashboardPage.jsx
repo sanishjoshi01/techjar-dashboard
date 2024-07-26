@@ -30,7 +30,7 @@ export default function DashboardPage() {
 
   // const [loading, setLoading] = React.useState(true);
   const [loadingOrders, setLoadingOrders] = React.useState(true);
-  const [ordersData, setOrdersData] = React.useState(null);
+  const [recentOrdersData, setRecentOrdersData] = React.useState(null);
 
   const [loadingDeposits, setLoadingDeposits] = React.useState(true);
   const [depositsData, setDepositsData] = React.useState(null);
@@ -45,7 +45,11 @@ export default function DashboardPage() {
       // setLoading(false);
 
       const ordersData = await fetchOrdersData();
-      setOrdersData(ordersData);
+      const sortedOrdersData = ordersData
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 5);
+
+      setRecentOrdersData(sortedOrdersData);
       setLoadingOrders(false);
 
       const depositsData = await fetchDepositsData();
@@ -125,7 +129,11 @@ export default function DashboardPage() {
                   {loadingOrders ? (
                     <Loading classNameSpinner="w-24 h-24" />
                   ) : (
-                    <Orders rows={ordersData} />
+                    <Orders
+                      title="Recent Orders"
+                      rows={recentOrdersData}
+                      size="small"
+                    />
                   )}
                 </Paper>
               </Grid>

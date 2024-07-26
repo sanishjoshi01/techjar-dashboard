@@ -13,9 +13,6 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 
 const drawerWidth = 240;
-const currentPageName =
-  window.location.pathname.slice(1).charAt(0).toUpperCase() +
-  window.location.pathname.slice(2);
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -83,7 +80,7 @@ function AppBars({ open, toggleDrawer }) {
           noWrap
           sx={{ flexGrow: 1 }}
         >
-          {currentPageName}
+          Dashboard
         </Typography>
         {/* Account Menu Icon */}
         <IconButton

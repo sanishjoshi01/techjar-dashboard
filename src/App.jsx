@@ -11,6 +11,7 @@ import GuestRoute from "./GuestRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import OrdersPage from "./components/OrdersPage";
+import CustomerPage from "./components/CustomerPage";
 
 function App() {
   return (
@@ -39,6 +40,14 @@ function App() {
           element={
             <ProtectedRoute>
               <OrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/customer"
+          element={
+            <ProtectedRoute>
+              <CustomerPage />
             </ProtectedRoute>
           }
         />

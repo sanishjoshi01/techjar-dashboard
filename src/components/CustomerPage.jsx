@@ -6,31 +6,31 @@ import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Orders from "./Orders";
 import Copyright from "./Copyright";
-import { fetchOrdersData } from "../api/mockAPI";
+import { fetchCustomerData } from "../api/mockAPI";
 import Loading from "./Loading";
 import SideBar from "./SideBar";
 import AppBars from "./AppBars";
+import Customer from "./Customer";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function OrdersPage() {
+export default function CustomerPage() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  const [loadingOrders, setLoadingOrders] = React.useState(true);
-  const [ordersData, setOrdersData] = React.useState(null);
+  const [loadingCustomer, setLoadingCustomer] = React.useState(true);
+  const [customerData, setCustomerData] = React.useState(null);
 
   //for full page loading
   React.useEffect(() => {
     const fetchData = async () => {
-      const ordersData = await fetchOrdersData();
-      setOrdersData(ordersData);
-      setLoadingOrders(false);
+      const customerData = await fetchCustomerData();
+      setCustomerData(customerData);
+      setLoadingCustomer(false);
     };
 
     fetchData();
@@ -60,10 +60,14 @@ export default function OrdersPage() {
               {/* All Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  {loadingOrders ? (
+                  {loadingCustomer ? (
                     <Loading classNameSpinner="w-24 h-24" />
                   ) : (
-                    <Orders title="All Orders" rows={ordersData} size="large" />
+                    <Customer
+                      title="All Customer"
+                      rows={customerData}
+                      size="large"
+                    />
                   )}
                 </Paper>
               </Grid>
