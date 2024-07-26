@@ -47,7 +47,6 @@ const fetchOrdersData = () => {
             ),
         ];
         setTimeout(() => resolve(rows), 2500);
-        console.log(rows)
     });
 };
 
@@ -66,8 +65,6 @@ const fetchDepositsData = () => {
 function createDataChart(time, amount) {
     return { time, amount: amount ?? null };
   }
-  
-
 
 const fetchChartData = () => {
     return new Promise((resolve) => {
