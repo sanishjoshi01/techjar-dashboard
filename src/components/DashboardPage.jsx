@@ -11,6 +11,7 @@ import Deposits from "./Deposit";
 import Orders from "./Orders";
 import Copyright from "./Copyright";
 import {
+  fetchDashboardData,
   fetchOrdersData,
   fetchDepositsData,
   fetchChartData,
@@ -28,7 +29,7 @@ export default function DashboardPage() {
     setOpen(!open);
   };
 
-  // const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(true);
   const [loadingOrders, setLoadingOrders] = React.useState(true);
   const [recentOrdersData, setRecentOrdersData] = React.useState(null);
 
@@ -41,8 +42,8 @@ export default function DashboardPage() {
   //for full page loading
   React.useEffect(() => {
     const fetchData = async () => {
-      // await fetchDashboardData();
-      // setLoading(false);
+      await fetchDashboardData();
+      setLoading(false);
 
       const ordersData = await fetchOrdersData();
       const sortedOrdersData = ordersData
@@ -64,9 +65,9 @@ export default function DashboardPage() {
     fetchData();
   }, []);
 
-  // if (loading) {
-  //   return <Loading className='fixed inset-0'/>;
-  // }
+  if (loading) {
+    return <Loading className="fixed inset-0" />;
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>

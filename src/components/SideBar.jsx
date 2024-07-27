@@ -5,7 +5,7 @@ import Divider from "@mui/material/Divider";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { mainListItems, secondaryListItems } from "./listItems";
+import { mainListItems } from "./listItems";
 
 const drawerWidth = 240;
 
@@ -18,14 +18,14 @@ function SideBar({ open, toggleDrawer }) {
       whiteSpace: "nowrap",
       width: drawerWidth,
       transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
+        easing: theme.transitions.easing.easeInOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
       boxSizing: "border-box",
       ...(!open && {
         overflowX: "hidden",
         transition: theme.transitions.create("width", {
-          easing: theme.transitions.easing.sharp,
+          easing: theme.transitions.easing.easeInOut,
           duration: theme.transitions.duration.leavingScreen,
         }),
         width: theme.spacing(7),
@@ -54,7 +54,6 @@ function SideBar({ open, toggleDrawer }) {
         <List component="nav">
           {mainListItems}
           <Divider sx={{ my: 1 }} />
-          {secondaryListItems}
         </List>
       </Drawer>
     </>

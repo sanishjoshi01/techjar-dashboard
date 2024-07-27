@@ -93,7 +93,7 @@ const fetchOrdersData = () => {
         232.79
       ),
     ];
-    setTimeout(() => resolve(rows), 2500);
+    setTimeout(() => resolve(rows), 1500);
   });
 };
 

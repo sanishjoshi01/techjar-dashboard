@@ -19,19 +19,18 @@ const AppBar = styled(MuiAppBar, {
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
+    easing: theme.transitions.easing.easeInOut,
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
+      easing: theme.transitions.easing.easeInOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
 }));
-
 function AppBars({ open, toggleDrawer }) {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
