@@ -5,11 +5,12 @@ import {
   Navigate,
 } from "react-router-dom";
 import SignIn from "./components/SignIn";
-import DashboardPage from "./components/DashboardPage";
+import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
 import GuestRoute from "./GuestRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import DashboardPage from "./components/DashboardPage";
 import OrdersPage from "./components/OrdersPage";
 import CustomerPage from "./components/CustomerPage";
 
@@ -31,7 +32,9 @@ function App() {
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <DashboardPage />
+              <Dashboard>
+                <DashboardPage />
+              </Dashboard>
             </ProtectedRoute>
           }
         />
@@ -39,7 +42,9 @@ function App() {
           path="/orders"
           element={
             <ProtectedRoute>
-              <OrdersPage />
+              <Dashboard>
+                <OrdersPage />
+              </Dashboard>
             </ProtectedRoute>
           }
         />
@@ -47,7 +52,9 @@ function App() {
           path="/customer"
           element={
             <ProtectedRoute>
-              <CustomerPage />
+              <Dashboard>
+                <CustomerPage />
+              </Dashboard>
             </ProtectedRoute>
           }
         />
