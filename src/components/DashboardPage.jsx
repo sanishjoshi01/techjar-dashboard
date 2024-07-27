@@ -13,7 +13,7 @@ import {
   fetchChartData,
 } from "../api/mockAPI";
 
-function DashboardPage() {
+export default function DashboardPage() {
   const [loadingOrders, setLoadingOrders] = React.useState(true);
   const [recentOrdersData, setRecentOrdersData] = React.useState(null);
 
@@ -100,5 +100,3 @@ function DashboardPage() {
     </Container>
   );
 }
-
-export default DashboardPage;

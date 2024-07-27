@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import DashboardPage from "./components/DashboardPage";
 import OrdersPage from "./components/OrdersPage";
 import CustomerPage from "./components/CustomerPage";
+import ReportsPage from "./components/ReportsPage";
 
 function App() {
   return (
@@ -54,6 +55,16 @@ function App() {
             <ProtectedRoute>
               <Dashboard>
                 <CustomerPage />
+              </Dashboard>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reports"
+          element={
+            <ProtectedRoute>
+              <Dashboard>
+                <ReportsPage />
               </Dashboard>
             </ProtectedRoute>
           }

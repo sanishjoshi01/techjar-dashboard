@@ -3,9 +3,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import { useMediaQuery } from "@mui/material";
 
-import { fetchDashboardData } from "../api/mockAPI";
-import Loading from "./Loading";
+// import { fetchDashboardData } from "../api/mockAPI";
+// import Loading from "./Loading";
 import SideBar from "./SideBar";
 import AppBars from "./AppBars";
 
@@ -17,22 +18,30 @@ export default function Dashboard({ children }) {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  const isSmallScreen = useMediaQuery(defaultTheme.breakpoints.down("sm"));
 
-  const [loading, setLoading] = React.useState(true);
+  // const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    if (isSmallScreen) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  }, [isSmallScreen]);
 
   //for full page loading
   React.useEffect(() => {
-    const fetchData = async () => {
-      await fetchDashboardData();
-      setLoading(false);
-    };
-
-    fetchData();
+    // const fetchData = async () => {
+    //   await fetchDashboardData();
+    //   setLoading(false);
+    // };
+    // fetchData();
   }, []);
 
-  if (loading) {
-    return <Loading className="fixed inset-0" />;
-  }
+  // if (loading) {
+  //   return <Loading className="fixed inset-0" />;
+  // }
 
   return (
     <ThemeProvider theme={defaultTheme}>
