@@ -96,7 +96,6 @@ export default function SignIn() {
               label="Email Address"
               name="email"
               autoFocus
-              value={email}
             />
             <TextField
               onChange={handleChangePassword}

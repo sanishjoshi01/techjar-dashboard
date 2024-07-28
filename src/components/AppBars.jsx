@@ -11,6 +11,8 @@ import MuiAppBar from "@mui/material/AppBar";
 import { useAuth } from "../context/useAuth";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
+import { useDispatch } from "react-redux";
+import { logoutReset } from "../store/index";
 
 const drawerWidth = 240;
 
@@ -32,6 +34,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 function AppBars({ open, toggleDrawer }) {
+  const dispatch = useDispatch();
   const { logout, user } = useAuth();
   const navigate = useNavigate();
 
@@ -50,6 +53,7 @@ function AppBars({ open, toggleDrawer }) {
 
     // TODO- logout
     logout();
+    dispatch(logoutReset());
     navigate("/");
   };
 
