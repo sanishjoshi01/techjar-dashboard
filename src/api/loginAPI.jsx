@@ -4,6 +4,10 @@ const requestLogin = (email, password) => {
       email: "admin@gmail.com",
       password: "admin#123",
     },
+    {
+      email: "admin123@gmail.com",
+      password: "admin#12",
+    },
   ];
 
   return new Promise((resolve, reject) => {
@@ -22,7 +26,7 @@ const requestLogin = (email, password) => {
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
 
-      const validatedPassword = password.length > 8;
+      const validatedPassword = password.length >= 8;
 
       if (!validatedEmail) {
         reject({
