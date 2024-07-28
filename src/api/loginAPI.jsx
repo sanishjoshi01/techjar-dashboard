@@ -10,7 +10,7 @@ const requestLogin = (email, password) => {
     const user = users.find(
       (user) => user.email === email && user.password === password
     );
-    if (email === "" || password === "") {
+    if (email === null || password === null) {
       reject({
         success: false,
         message: "Fields cannot be empty!",
