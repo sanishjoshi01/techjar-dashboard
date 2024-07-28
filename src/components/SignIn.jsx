@@ -43,6 +43,7 @@ export default function SignIn() {
     //use login function here
     try {
       const response = await requestLogin(email, password);
+      console.log(response);
 
       if (response.success) {
         login(response.user);
@@ -94,10 +95,9 @@ export default function SignIn() {
               id="email"
               label="Email Address"
               name="email"
-              autoComplete="email"
               autoFocus
+              value={email}
             />
-            {email}
             <TextField
               onChange={handleChangePassword}
               margin="normal"
@@ -107,9 +107,7 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
             />
-            {password}
             <Button
               type="submit"
               fullWidth
