@@ -24,7 +24,7 @@ export default function ReportsPage() {
   }
 
   if (error) {
-    return <p>error</p>;
+    return <p>error: {error.message}</p>;
   }
 
   return (

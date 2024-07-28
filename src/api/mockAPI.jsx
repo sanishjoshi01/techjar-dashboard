@@ -148,7 +148,7 @@ const fetchCustomerData = () => {
 
 //reports data
 const fetchReportsData = () => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const data = [
       { data: [3, 4, 1, 6, 5], stack: "A", label: "Series A1" },
       { data: [4, 3, 1, 5, 8], stack: "A", label: "Series A2" },
@@ -157,6 +157,7 @@ const fetchReportsData = () => {
       { data: [10, 6, 5, 8, 9], label: "Series C1" },
     ];
     resolve(data);
+    reject({ message: "Something went wrong" });
   });
 };
 
